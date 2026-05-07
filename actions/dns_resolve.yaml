@@ -1,0 +1,16 @@
+---
+name: dns_resolve
+pack: shodan
+runner_type: python-script
+description: >
+  Look up the IP addresses for one or more hostnames. Uses Shodan's DNS
+  resolution endpoint.
+enabled: true
+entry_point: dns_resolve.py
+parameters:
+  hostnames:
+    type: array
+    description: List of hostnames to resolve (e.g. ["google.com", "example.com"]).
+    required: true
+    items:
+      type: string

@@ -1,0 +1,14 @@
+---
+name: host_ports
+pack: shodan
+runner_type: python-script
+description: >
+  Returns the list of open ports Shodan has observed on a host. Faster than
+  host_info as it fetches only minimal data.
+enabled: true
+entry_point: host_ports.py
+parameters:
+  ip:
+    type: string
+    description: IPv4 address of the host.
+    required: true

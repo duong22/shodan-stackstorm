@@ -1,0 +1,5 @@
+shodan_api_key:
+  description: Shodan API key. Get one at https://account.shodan.io/
+  type: string
+  secret: true
+  required: true

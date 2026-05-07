@@ -1,0 +1,33 @@
+---
+name: search
+pack: shodan
+runner_type: python-script
+description: >
+  Search Shodan using the same query syntax as the website. Returns a list of
+  matching hosts with their banners, open ports, and metadata.
+enabled: true
+entry_point: search.py
+parameters:
+  query:
+    type: string
+    description: >
+      Shodan search query (e.g. "apache country:US port:8080",
+      "product:nginx vuln:CVE-2021-44228").
+    required: true
+  facets:
+    type: string
+    description: >
+      Comma-separated list of properties to get summary info on, e.g.
+      "country,org,port". Requires a paid API plan.
+    required: false
+    default: null
+  page:
+    type: integer
+    description: Page number of results (100 results per page). Starts at 1.
+    required: false
+    default: 1
+  minify:
+    type: boolean
+    description: Return minimal host information per result to reduce payload size.
+    required: false
+    default: true

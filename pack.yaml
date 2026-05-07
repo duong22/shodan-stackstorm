@@ -1,0 +1,17 @@
+ref: shodan
+name: shodan
+description: StackStorm integration pack for Shodan - the search engine for Internet-connected devices.
+keywords:
+  - shodan
+  - security
+  - threat intelligence
+  - network
+  - scanning
+version: 1.0.0
+python_versions:
+  - "3"
+author: Shodan
+email: support@shodan.io
+contributors: 
+  - "Duong Dinh C <thaiduong.dinh@shodan.io>"
+ 

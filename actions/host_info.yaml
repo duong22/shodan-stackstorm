@@ -1,0 +1,24 @@
+---
+name: host_info
+pack: shodan
+runner_type: python-script
+description: >
+  Returns all services that have been found on the given host IP. Includes open
+  ports, banners, vulnerabilities (if any), geolocation, hostnames, and more.
+enabled: true
+entry_point: host_info.py
+parameters:
+  ip:
+    type: string
+    description: IPv4 address of the host to query.
+    required: true
+  history:
+    type: boolean
+    description: Include all historical banners for the host.
+    required: false
+    default: false
+  minify:
+    type: boolean
+    description: Return only the minimal set of host information (faster).
+    required: false
+    default: false

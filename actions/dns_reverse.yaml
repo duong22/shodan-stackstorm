@@ -1,0 +1,16 @@
+---
+name: dns_reverse
+pack: shodan
+runner_type: python-script
+description: >
+  Perform reverse DNS lookups on one or more IP addresses. Returns the
+  hostnames that point to each IP.
+enabled: true
+entry_point: dns_reverse.py
+parameters:
+  ips:
+    type: array
+    description: List of IPv4 addresses to reverse-lookup (e.g. ["8.8.8.8", "1.1.1.1"]).
+    required: true
+    items:
+      type: string
