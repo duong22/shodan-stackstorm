@@ -1,30 +1,80 @@
-# StackStorm Exchange Incubator
+# Shodan StackStorm Pack
 
-### What is this?
+StackStorm integration pack for [Shodan](https://www.shodan.io/) — the search engine for Internet-connected devices.
 
-This repository is a very special place where user-submitted packs get reviewed, perfected, approved, and finally transferred to the Exchange.
+## Requirements
 
-If you want to submit your pack, it's simple!
+- A Shodan API key — get one at [account.shodan.io](https://account.shodan.io/)
 
-1. **Fork this repo,**
-2. **create a subdirectory with your pack,**
-3. **and open a Pull Request.**
+## Installation
 
-We'll take it from here. Even if your pack is work-in-progress, you can still submit it to get advice and early feedback from our engineers! Or ping us [on Slack](https://stackstorm.com/community-signup), which is generally the best place to get advice from the StackStorm Community.
+```shell
+st2 pack install shodan
+```
 
-Before you submit a pack, make sure to read the [Create and Contribute a Pack](https://docs.stackstorm.com/reference/packs.html) section of our documentation.
+## Configuration
 
-Here's N.E.P.T.R. the StackStorm Exchange Governor, giving you a thumbs-up:
+```shell
+st2 pack config shodan
+```
 
-![](http://i.imgur.com/3bqVAh0.gif)
+Or create the config manually:
 
-## Contributors License Agreement
+```yaml
+# /opt/stackstorm/configs/shodan.yaml
+shodan_api_key: "YOUR_API_KEY_HERE"
+request_timeout: 30
+```
 
-By contributing you agree that these contributions are your own (or approved by your employer) and
-you grant a full, complete, irrevocable copyright license to all users and developers of the
-project, present and future, pursuant to the license of the project.
+Then reload:
+
+```shell
+st2ctl reload --register-configs
+```
+
+## Actions
+
+| Action | Description |
+|--------|-------------|
+| `shodan.host_info` | Returns all Shodan data for a host — ports, banners, hostnames, geolocation, org, CVEs |
+| `shodan.host_ports` | Returns open ports only for a host (faster than `host_info`) |
+| `shodan.search` | Search Shodan using filter syntax |
+| `shodan.dns_resolve` | Resolve one or more hostnames to IP addresses |
+| `shodan.dns_reverse` | Reverse DNS lookup for one or more IP addresses |
+
+## Usage
+
+```shell
+# Full host lookup
+st2 run shodan.host_info ip=8.8.8.8
+
+# Open ports only
+st2 run shodan.host_ports ip=8.8.8.8
+
+# Search
+st2 run shodan.search query="product:redis country:VN"
+st2 run shodan.search query="port:22 has:vuln" page=2
+
+# DNS
+st2 run shodan.dns_resolve hostnames='["google.com", "cloudflare.com"]'
+st2 run shodan.dns_reverse ips='["8.8.8.8", "1.1.1.1"]'
+```
+
+## Shodan Query Filter Reference
+
+| Filter | Example |
+|--------|---------|
+| `port:` | `port:22` |
+| `country:` | `country:VN` |
+| `org:` | `org:"Amazon"` |
+| `product:` | `product:nginx` |
+| `os:` | `os:windows` |
+| `asn:` | `asn:AS13335` |
+| `vuln:` | `vuln:CVE-2021-44228` |
+| `has:vuln` | `has:vuln` |
+
+Full filter reference: https://www.shodan.io/search/filters
 
 ## License
 
-All packs must be licensed under the Apache 2.0 license. We will not accept your new pack
-until we see a LICENSE file in your pull request with the Apache 2.0 license in it.
+Apache 2.0
